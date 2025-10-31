@@ -198,7 +198,7 @@ export default function VotePage() {
             {/* Best Song */}
             <div>
               <label className="block text-lg font-semibold text-primary mb-3">
-                1. Welchen Song findest du am besten? (2 Punkte)
+                1. Welchen Song findest du am besten?
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {categories.map((category) => (
@@ -226,7 +226,7 @@ export default function VotePage() {
             {/* Nice Song */}
             <div>
               <label className="block text-lg font-semibold text-primary mb-3">
-                2. Der war auch nice (1 Punkt)
+                2. Der war auch nice?
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
                 {categories.map((category) => (
