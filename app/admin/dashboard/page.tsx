@@ -244,7 +244,7 @@ export default function AdminDashboard() {
         </div>
 
         <div className="card mb-8">
-          <div className="flex justify-between items-start mb-4">
+          <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
             <div>
               <h1 className="text-3xl font-bold text-primary mb-2">
                 📊 Ergebnisse
@@ -254,15 +254,15 @@ export default function AdminDashboard() {
               </p>
             </div>
             
-            <div className="text-right">
-              <label className="flex items-center gap-3 cursor-pointer">
-                <span className="text-sm font-medium text-gray-700">
+            <div className="flex flex-col items-start md:items-end">
+              <label className="flex items-center gap-3 cursor-pointer mb-2">
+                <span className="text-sm font-medium text-gray-700 whitespace-nowrap">
                   Ergebnisse öffentlich:
                 </span>
                 <button
                   onClick={toggleResultsPublic}
                   disabled={updating}
-                  className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors ${
+                  className={`relative inline-flex h-8 w-14 items-center rounded-full transition-colors flex-shrink-0 ${
                     resultsPublic ? 'bg-green-500' : 'bg-gray-300'
                   } ${updating ? 'opacity-50' : ''}`}
                 >
@@ -272,11 +272,11 @@ export default function AdminDashboard() {
                     }`}
                   />
                 </button>
-                <span className={`text-sm font-bold ${resultsPublic ? 'text-green-600' : 'text-gray-500'}`}>
+                <span className={`text-sm font-bold whitespace-nowrap ${resultsPublic ? 'text-green-600' : 'text-gray-500'}`}>
                   {resultsPublic ? 'AN' : 'AUS'}
                 </span>
               </label>
-              <p className="text-xs text-gray-500 mt-2">
+              <p className="text-xs text-gray-500">
                 {resultsPublic ? '✅ Alle können die Ergebnisse sehen' : '🔒 Nur du siehst die Ergebnisse'}
               </p>
             </div>
@@ -348,38 +348,38 @@ export default function AdminDashboard() {
           </h2>
           
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[800px]">
               <thead>
                 <tr className="border-b-2 border-gray-300">
-                  <th className="text-left p-3">Name</th>
-                  <th className="text-left p-3">E-Mail</th>
-                  <th className="text-left p-3">Bester Song</th>
-                  <th className="text-left p-3">Nice Song</th>
-                  <th className="text-left p-3">Eigener Song</th>
-                  <th className="text-left p-3">Datum</th>
+                  <th className="text-left p-3 whitespace-nowrap">Name</th>
+                  <th className="text-left p-3 whitespace-nowrap hidden md:table-cell">E-Mail</th>
+                  <th className="text-left p-3 whitespace-nowrap">Bester Song</th>
+                  <th className="text-left p-3 whitespace-nowrap">Nice Song</th>
+                  <th className="text-left p-3 whitespace-nowrap">Eigener Song</th>
+                  <th className="text-left p-3 whitespace-nowrap">Datum</th>
                 </tr>
               </thead>
               <tbody>
                 {votes.map((vote) => (
                   <tr key={vote.id} className="border-b border-gray-200 hover:bg-gray-50">
-                    <td className="p-3 font-medium">{vote.user_name}</td>
-                    <td className="p-3 text-sm text-gray-600">{vote.user_email}</td>
+                    <td className="p-3 font-medium whitespace-nowrap">{vote.user_name}</td>
+                    <td className="p-3 text-sm text-gray-600 hidden md:table-cell">{vote.user_email}</td>
                     <td className="p-3">
-                      <span className="px-2 py-1 bg-green-100 text-green-800 rounded font-semibold">
+                      <span className="inline-block px-2 py-1 bg-green-100 text-green-800 rounded font-semibold text-sm whitespace-nowrap">
                         {vote.best_category_name}
                       </span>
                     </td>
                     <td className="p-3">
-                      <span className="px-2 py-1 bg-blue-100 text-blue-800 rounded font-semibold">
+                      <span className="inline-block px-2 py-1 bg-blue-100 text-blue-800 rounded font-semibold text-sm whitespace-nowrap">
                         {vote.nice_category_name}
                       </span>
                     </td>
                     <td className="p-3">
-                      <span className="px-2 py-1 bg-gray-100 text-gray-800 rounded font-semibold">
+                      <span className="inline-block px-2 py-1 bg-gray-100 text-gray-800 rounded font-semibold text-sm whitespace-nowrap">
                         {vote.own_category_name}
                       </span>
                     </td>
-                    <td className="p-3 text-sm text-gray-600">
+                    <td className="p-3 text-sm text-gray-600 whitespace-nowrap">
                       {new Date(vote.created_at).toLocaleDateString('de-DE')}
                     </td>
                   </tr>

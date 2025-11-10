@@ -9,12 +9,15 @@ export default function Home() {
   const [categories, setCategories] = useState<Category[]>([])
   const [loading, setLoading] = useState(true)
   const [user, setUser] = useState<any>(null)
+  const [voters, setVoters] = useState<string[]>([])
+  const [totalVotes, setTotalVotes] = useState(0)
   const router = useRouter()
   const supabase = createClient()
 
   useEffect(() => {
     checkUser()
     fetchCategories()
+    fetchVotingStatus()
   }, [])
 
   async function checkUser() {
@@ -32,6 +35,17 @@ export default function Home() {
       setCategories([])
     } finally {
       setLoading(false)
+    }
+  }
+
+  async function fetchVotingStatus() {
+    try {
+      const response = await fetch('/api/votes/status')
+      const data = await response.json()
+      setVoters(data.voters || [])
+      setTotalVotes(data.total || 0)
+    } catch (error) {
+      console.error('Error fetching voting status:', error)
     }
   }
 
@@ -88,7 +102,7 @@ export default function Home() {
           </div>
         )}
 
-        <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
+        <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-12">
           <button
             onClick={() => router.push('/vote')}
             className="btn-primary text-xl px-12 py-6"
@@ -101,6 +115,44 @@ export default function Home() {
           >
             🏆 Ergebnisse ansehen
           </button>
+        </div>
+
+        {/* Voting Status */}
+        <div className="card max-w-2xl mx-auto">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-primary mb-2">
+              📊 Abstimmungs-Status
+            </h2>
+            <p className="text-3xl font-bold text-gray-800">
+              {totalVotes} / 11 Leute haben abgestimmt
+            </p>
+          </div>
+
+          {voters.length > 0 && (
+            <div>
+              <h3 className="text-lg font-semibold text-gray-700 mb-3 text-center">
+                Wer hat schon abgestimmt?
+              </h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {voters.map((voter, index) => (
+                  <div
+                    key={index}
+                    className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-center"
+                  >
+                    <span className="text-blue-900 font-medium">
+                      ✓ {voter}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {voters.length === 0 && (
+            <p className="text-center text-gray-500">
+              Noch niemand hat abgestimmt
+            </p>
+          )}
         </div>
 
         {user?.email === 'mihnea.co@gmail.com' && (
