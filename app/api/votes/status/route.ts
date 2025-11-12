@@ -8,7 +8,7 @@ export async function GET() {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
     
-    // Get all votes with user names for the active challenge
+    // Get active challenge
     const { data: activeChallenge } = await supabase
       .from('challenges')
       .select('id')
@@ -19,10 +19,23 @@ export async function GET() {
       return NextResponse.json({ voters: [], total: 0 })
     }
     
-    // Get all votes
+    // Get all categories for the active challenge
+    const { data: categories } = await supabase
+      .from('categories')
+      .select('id')
+      .eq('challenge_id', activeChallenge.id)
+    
+    if (!categories || categories.length === 0) {
+      return NextResponse.json({ voters: [], total: 0 })
+    }
+    
+    const categoryIds = categories.map(c => c.id)
+    
+    // Get votes that belong to the active challenge (by checking if best_category_id is in our category list)
     const { data: votes, error } = await supabase
       .from('votes')
-      .select('user_name, created_at')
+      .select('user_name, created_at, best_category_id')
+      .in('best_category_id', categoryIds)
       .order('created_at', { ascending: true })
     
     if (error) {
