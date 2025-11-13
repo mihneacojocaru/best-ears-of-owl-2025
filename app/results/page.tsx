@@ -151,7 +151,7 @@ export default function ResultsPage() {
     <div className="min-h-screen p-4 py-12">
       <div className="max-w-7xl mx-auto">
         <div className="card mb-8 text-center">
-          <h1 className="text-4xl font-bold text-primary mb-2">
+          <h1 className="text-4xl font-bold text-primary mb-2 hyphens-auto">
             🏆 Abstimmungsergebnisse
           </h1>
           <p className="text-gray-600">

@@ -105,20 +105,21 @@ export default function Home() {
         <div className="flex flex-col md:flex-row gap-4 justify-center items-center mb-12">
           <button
             onClick={() => router.push('/vote')}
-            className="btn-primary text-xl px-12 py-6"
+            className="btn-primary text-2xl px-12 py-6 w-full"
           >
             Jetzt abstimmen →
           </button>
           <button
             onClick={() => router.push('/results')}
-            className="btn-secondary text-xl px-12 py-6"
+            className="btn-tertiary text-2xl px-12 py-6 w-full inline-flex justify-center items-center gap-4"
           >
-            🏆 Ergebnisse ansehen
+            <span>🏆</span>
+            <span className="font-semibold">Ergebnisse ansehen</span>
           </button>
         </div>
 
         {/* Voting Status */}
-        <div className="card max-w-2xl mx-auto">
+        <div className="card lg:max-w-2xl mx-auto">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-bold text-primary mb-2">
               📊 Abstimmungs-Status
@@ -130,7 +131,7 @@ export default function Home() {
 
           {voters.length > 0 && (
             <div>
-              <h3 className="text-lg font-semibold text-gray-700 mb-3 text-center">
+              <h3 className="text-lg font-semibold text-gray-700 mb-8 text-center">
                 Wer hat schon abgestimmt?
               </h3>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
