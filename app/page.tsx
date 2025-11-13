@@ -72,7 +72,7 @@ export default function Home() {
         <div className="text-center mb-12">
           <div className="mb-6 flex justify-center">
             <Image 
-              src="/logo.png" 
+              src="https://www.inteative.com/bestearsofowl/images/logo.png" 
               alt="Best Ears of Owl Logo" 
               width={192}
               height={192}
