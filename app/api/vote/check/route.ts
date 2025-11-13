@@ -15,10 +15,35 @@ export async function GET(request: NextRequest) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
     
+    // Get active challenge
+    const { data: activeChallenge } = await supabase
+      .from('challenges')
+      .select('id')
+      .eq('is_active', true)
+      .single()
+    
+    if (!activeChallenge) {
+      return NextResponse.json({ hasVoted: false })
+    }
+    
+    // Get all categories for the active challenge
+    const { data: categories } = await supabase
+      .from('categories')
+      .select('id')
+      .eq('challenge_id', activeChallenge.id)
+    
+    if (!categories || categories.length === 0) {
+      return NextResponse.json({ hasVoted: false })
+    }
+    
+    const categoryIds = categories.map(c => c.id)
+    
+    // Check if user has voted for the active challenge
     const { data, error } = await supabase
       .from('votes')
       .select('id')
       .eq('user_email', email)
+      .in('best_category_id', categoryIds)
       .maybeSingle()
     
     if (error) {
