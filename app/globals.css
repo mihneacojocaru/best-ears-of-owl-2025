@@ -5,7 +5,7 @@
 :root {
   --primary: #1e293b;
   --secondary: #e2e8f0;
-  --tertiary: #a7f3d0;
+  --tertiary: #1A607E;
 }
 
 body {
@@ -14,7 +14,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f8fafc;
+  background-image: linear-gradient(45deg, rgb(227, 118, 130) 15%, rgb(95, 77, 147) 85%);
+  min-height: 100vh;
 }
 
 @layer components {

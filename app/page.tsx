@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
 import { createClient } from '@/lib/supabase/client'
 import { Category } from '@/lib/types'
 
@@ -57,31 +58,44 @@ export default function Home() {
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="text-xl text-primary">Lädt...</div>
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+          <p className="text-white font-bold text-xl">Lädt...</p>
+        </div>
       </div>
     )
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <main className="min-h-screen">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold text-primary mb-4">
+          <div className="mb-6 flex justify-center">
+            <Image 
+              src="/logo.png" 
+              alt="Best Ears of Owl Logo" 
+              width={192}
+              height={192}
+              priority
+              className="w-48 h-auto"
+            />
+          </div>
+          <h1 className="text-5xl font-bold text-white mb-4">
             🎵 BEST EARS OF OWL 2025
           </h1>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-white">
             Wähle eine Kategorie und stimme für deinen Lieblingssong ab
           </p>
         </div>
 
         {user && (
           <div className="mb-8 text-center">
-            <p className="text-gray-700 mb-2">
+            <p className="text-white mb-2">
               Angemeldet als: <span className="font-semibold">{user.email}</span>
             </p>
             <button
               onClick={handleSignOut}
-              className="text-sm text-gray-500 hover:text-primary underline"
+              className="text-sm text-white hover:text-gray-200 underline"
             >
               Abmelden
             </button>
